@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 
 function App() {
+  const [name, setName] = useState("");
+  // const [movies, setMovies] = useState([]);
+
+  const url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${name}`;
+
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(() => { return e.target.value });
+  };
+
+  useEffect(() => {
+    if (!name) return;
+
+    const identifier = setTimeout(() => {
+      // send api call from here
+      axios.get(url).then(response => {
+        console.log(response.data)
+      })
+    }, 500)
+
+    return () => clearTimeout(identifier)
+  }, [name, url]);
+
+  // search OMDB par users input
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // accept input from users
+    <main>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" onChange={inputChangeHandler} />
+      </div>
+    </main>
   );
 }
 
