@@ -1,9 +1,21 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+interface movieInfo {
+  id: string;
+  title: string;
+  year: string;
+}
+
 function App() {
   const [name, setName] = useState("");
-  const [movies, setMovies] = useState<{}[]>([]);
+  const [movies, setMovies] = useState<movieInfo[]>([]);
+
+  const movie_s: movieInfo[] = [
+    /* { id: "121", title: "hello", year: "2012" },
+    { id: "122", title: "hello-bello", year: "2013" },
+    { id: "1233", title: "hello-bello-kello", year: "2014" }, */
+  ];
 
   const url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${name}`;
 
@@ -14,10 +26,14 @@ function App() {
   };
 
   useEffect(() => {
+    console.log(movies);
+  }, [movies]);
+
+  useEffect(() => {
     if (!name) return;
 
     const identifier = setTimeout(() => {
-      // send api call from here
+      // send api call from here Title, imdbID, Year
       axios
         .get(url)
         .then((response) => {
@@ -44,7 +60,16 @@ function App() {
       </div>
 
       <div>
-        <ul></ul>
+        <ul>
+          {/* {movies.map((movie) => {
+            return (
+              <li key={movie.id}>
+                {movie.title}
+                <span>{movie.year}</span>
+              </li>
+            );
+          })} */}
+        </ul>
       </div>
     </main>
   );
