@@ -2,20 +2,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 interface movieInfo {
-  id: string;
-  title: string;
-  year: string;
+  Title: string;
+  Year: string;
+  imdbID: string;
 }
 
 function App() {
   const [name, setName] = useState("");
   const [movies, setMovies] = useState<movieInfo[]>([]);
-
-  const movie_s: movieInfo[] = [
-    /* { id: "121", title: "hello", year: "2012" },
-    { id: "122", title: "hello-bello", year: "2013" },
-    { id: "1233", title: "hello-bello-kello", year: "2014" }, */
-  ];
 
   const url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${name}`;
 
@@ -26,10 +20,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(movies);
-  }, [movies]);
-
-  useEffect(() => {
     if (!name) return;
 
     const identifier = setTimeout(() => {
@@ -37,6 +27,7 @@ function App() {
       axios
         .get(url)
         .then((response) => {
+          // console.log(response.data)
           setMovies(() => {
             return response.data.Search;
           });
@@ -52,23 +43,25 @@ function App() {
   }, [name, url]);
 
   return (
-    // accept input from users
     <main>
       <div>
+        {/* accept input from users */}
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" onChange={inputChangeHandler} />
       </div>
 
       <div>
         <ul>
-          {/* {movies.map((movie) => {
-            return (
-              <li key={movie.id}>
-                {movie.title}
-                <span>{movie.year}</span>
-              </li>
-            );
-          })} */}
+          {movies
+            ? movies.map((movie) => {
+                return (
+                  <li key={movie.imdbID}>
+                    {movie.Title}
+                    <span>({movie.Year})</span>
+                  </li>
+                );
+              })
+            : null}
         </ul>
       </div>
     </main>
