@@ -1,11 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-interface movieInfo {
-  Title: string;
-  Year: string;
-  imdbID: string;
-}
+import movieInfo from "./models/movieInfo";
+import Input from "./components/Input";
 
 function App() {
   const [name, setName] = useState("");
@@ -14,7 +10,7 @@ function App() {
 
   const url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${name}`;
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(() => e.target.value);
   };
 
@@ -48,11 +44,7 @@ function App() {
 
   return (
     <main>
-      <div>
-        {/* accept input from users */}
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" onChange={inputChangeHandler} />
-      </div>
+      <Input onInputChangeHandler={inputChangeHandler} />
 
       <div>
         <h2>Nominate</h2>
