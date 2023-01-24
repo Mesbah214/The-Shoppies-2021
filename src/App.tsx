@@ -15,15 +15,15 @@ function App() {
   const url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${name}`;
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(() => {
-      return e.target.value;
-    });
+    setName(() => e.target.value);
   };
 
-  const clickHandler = (obj: movieInfo) => {
-    setNominations([...nominations, obj]);
+  const addNominationHandler = (obj: movieInfo) => {
+    if (nominations.length < 5) setNominations([...nominations, obj]);
+  };
 
-    // console.log(obj)
+  const denominationHandler = (obj: movieInfo) => {
+    setNominations(nominations.filter((a) => a.imdbID !== obj.imdbID));
   };
 
   useEffect(() => {
@@ -34,10 +34,7 @@ function App() {
       axios
         .get(url)
         .then((response) => {
-          // console.log(response.data)
-          setMovies(() => {
-            return response.data.Search;
-          });
+          setMovies(() => response.data.Search);
         })
         .catch((err) => {
           console.log(err);
@@ -62,14 +59,16 @@ function App() {
         <ul>
           {movies
             ? movies.map((movie) => {
+                const isDisabled = !!nominations.find(nomination => movie.imdbID === nomination.imdbID);
                 return (
                   <li key={movie.imdbID}>
                     {movie.Title}
                     <span>({movie.Year})</span>
                     <button
                       onClick={() => {
-                        clickHandler(movie);
+                        addNominationHandler(movie);
                       }}
+                      disabled={isDisabled}
                     >
                       Nominate
                     </button>
@@ -92,7 +91,13 @@ function App() {
                   <li key={nomination.imdbID}>
                     {nomination.Title}
                     <span>({nomination.Year})</span>
-                    <button>Remove</button>
+                    <button
+                      onClick={() => {
+                        denominationHandler(nomination);
+                      }}
+                    >
+                      Remove
+                    </button>
                   </li>
                 );
               })
