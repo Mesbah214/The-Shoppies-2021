@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import movieInfo from "./models/movieInfo";
 import Input from "./components/Input";
 import Movies from "./components/Movies";
+import Nominations from "./components/Nominations";
 
 function App() {
   const [name, setName] = useState("");
@@ -52,7 +53,7 @@ function App() {
         <Movies
           movies={movies}
           nominations={nominations}
-          onAddNominationHandler={addNominationHandler}
+          onAddNomination={addNominationHandler}
         />
       </div>
 
@@ -60,25 +61,10 @@ function App() {
 
       <div>
         <h2>Nominations</h2>
-        <ul>
-          {nominations
-            ? nominations.map((nomination) => {
-                return (
-                  <li key={nomination.imdbID}>
-                    {nomination.Title}
-                    <span>({nomination.Year})</span>
-                    <button
-                      onClick={() => {
-                        denominationHandler(nomination);
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </li>
-                );
-              })
-            : null}
-        </ul>
+        <Nominations
+          nominations={nominations}
+          onDenomination={denominationHandler}
+        />
       </div>
     </main>
   );

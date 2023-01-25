@@ -3,8 +3,8 @@ import movieInfo from "../models/movieInfo";
 const Movies: React.FC<{
   movies: movieInfo[];
   nominations: movieInfo[];
-  onAddNominationHandler: (move: movieInfo) => void;
-}> = ({ movies, nominations, onAddNominationHandler }) => {
+  onAddNomination: (movie: movieInfo) => void;
+}> = ({ movies, nominations, onAddNomination}) => {
   return (
     <div>
       <ul>
@@ -16,7 +16,7 @@ const Movies: React.FC<{
                   <span>{movie.Year}</span>
                   <button
                     onClick={() => {
-                      onAddNominationHandler(movie);
+                      onAddNomination(movie);
                     }}
                     disabled={
                       !!nominations.find(
