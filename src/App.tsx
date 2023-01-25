@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import movieInfo from "./models/movieInfo";
 import Input from "./components/Input";
+import Movies from "./components/Movies";
 
 function App() {
   const [name, setName] = useState("");
@@ -48,30 +49,13 @@ function App() {
 
       <div>
         <h2>Nominate</h2>
-        <ul>
-          {movies
-            ? movies.map((movie) => {
-                const isDisabled = !!nominations.find(nomination => movie.imdbID === nomination.imdbID);
-                return (
-                  <li key={movie.imdbID}>
-                    {movie.Title}
-                    <span>({movie.Year})</span>
-                    <button
-                      onClick={() => {
-                        addNominationHandler(movie);
-                      }}
-                      disabled={isDisabled}
-                    >
-                      Nominate
-                    </button>
-                  </li>
-                );
-              })
-            : null}
-        </ul>
+        <Movies
+          movies={movies}
+          nominations={nominations}
+          onAddNominationHandler={addNominationHandler}
+        />
       </div>
-      <br />
-      <br />
+
       <br />
 
       <div>
