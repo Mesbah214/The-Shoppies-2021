@@ -1,4 +1,5 @@
 import movieInfo from "../models/movieInfo";
+import Button from "./UI/Button";
 
 const Nominations: React.FC<{
   nominations: movieInfo[];
@@ -13,13 +14,12 @@ const Nominations: React.FC<{
                 <li key={nomination.imdbID}>
                   {nomination.Title}
                   <span>{nomination.Year}</span>
-                  <button
-                    onClick={() => {
-                      onDenomination(nomination);
-                    }}
-                  >
-                    Denominate
-                  </button>
+
+                  <Button
+                    name={"Denominate"}
+                    onDenomination={onDenomination}
+                    movie={nomination}
+                  />
                 </li>
               );
             })
