@@ -1,5 +1,6 @@
 import movieInfo from "../models/movieInfo";
 import Button from "./UI/Button";
+import Movie from "./Movie";
 
 const Movies: React.FC<{
   movies: movieInfo[];
@@ -12,9 +13,7 @@ const Movies: React.FC<{
         {movies
           ? movies.map((movie) => {
               return (
-                <li key={movie.imdbID}>
-                  {movie.Title}
-                  <span>{movie.Year}</span>
+                <Movie key={movie.imdbID} movie={movie}>
                   <Button
                     name={"Nominate"}
                     movie={movie}
@@ -25,7 +24,7 @@ const Movies: React.FC<{
                       )
                     }
                   />
-                </li>
+                </Movie>
               );
             })
           : null}
