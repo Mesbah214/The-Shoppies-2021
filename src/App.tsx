@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+
 import movieInfo from "./models/movieInfo";
 import Input from "./components/Input";
 import Movies from "./components/Movies";

@@ -17,7 +17,7 @@ const Nominations: React.FC<{
 
                   <Button
                     name={"Denominate"}
-                    onDenomination={onDenomination}
+                    onClickHandler={onDenomination}
                     movie={nomination}
                   />
                 </li>

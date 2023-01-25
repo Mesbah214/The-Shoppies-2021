@@ -1,10 +1,11 @@
 import movieInfo from "../models/movieInfo";
+import Button from "./UI/Button";
 
 const Movies: React.FC<{
   movies: movieInfo[];
   nominations: movieInfo[];
   onAddNomination: (movie: movieInfo) => void;
-}> = ({ movies, nominations, onAddNomination}) => {
+}> = ({ movies, nominations, onAddNomination }) => {
   return (
     <div>
       <ul>
@@ -14,18 +15,16 @@ const Movies: React.FC<{
                 <li key={movie.imdbID}>
                   {movie.Title}
                   <span>{movie.Year}</span>
-                  <button
-                    onClick={() => {
-                      onAddNomination(movie);
-                    }}
-                    disabled={
+                  <Button
+                    name={"Nominate"}
+                    movie={movie}
+                    onClickHandler={onAddNomination}
+                    isDisabled={
                       !!nominations.find(
                         (nomination) => movie.imdbID === nomination.imdbID
                       )
                     }
-                  >
-                    Nominate
-                  </button>
+                  />
                 </li>
               );
             })

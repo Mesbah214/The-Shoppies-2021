@@ -3,13 +3,15 @@ import movieInfo from "../../models/movieInfo";
 const Button: React.FC<{
   name: string;
   movie: movieInfo;
-  onDenomination: (movie: movieInfo) => void;
-}> = ({ name, onDenomination, movie }) => {
+  onClickHandler: (movie: movieInfo) => void;
+  isDisabled?: boolean
+}> = ({ name, onClickHandler, movie, isDisabled }) => {
   return (
     <button
       onClick={() => {
-        onDenomination(movie);
+        onClickHandler(movie);
       }}
+      disabled={isDisabled}
     >
       {name}
     </button>
