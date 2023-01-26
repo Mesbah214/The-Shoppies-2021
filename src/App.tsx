@@ -37,7 +37,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-    }, 500);
+    }, 400);
 
     return () => {
       clearTimeout(identifier);
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <main>
-      <Input onInputChangeHandler={inputChangeHandler} />
+      <Input onInputChangeHandler={inputChangeHandler} val={name} />
 
       <div>
         <h2>Nominate</h2>
@@ -58,7 +58,7 @@ function App() {
         />
       </div>
 
-      <br />
+			<br />
 
       <div>
         <h2>Nominations</h2>
