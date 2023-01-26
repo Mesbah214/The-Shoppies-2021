@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 
 import movieInfo from "./models/movieInfo";
 import Input from "./components/Input";
-import Movies from "./components/Movies";
-import Nominations from "./components/Nominations";
+import MovieList from "./components/MovieList";
 
 function App() {
   const [name, setName] = useState("");
@@ -29,7 +28,7 @@ function App() {
     if (!name) return;
 
     const identifier = setTimeout(() => {
-      // send api call from here Title, imdbID, Year
+      // send api call from here
       axios
         .get(url)
         .then((response) => {
@@ -51,10 +50,11 @@ function App() {
 
       <div>
         <h2>Nominate</h2>
-        <Movies
-          movies={movies}
-          nominations={nominations}
-          onAddNomination={addNominationHandler}
+        <MovieList
+          objArr={movies}
+          searchArr={nominations}
+          name="movies"
+          onMovieListHandler={addNominationHandler}
         />
       </div>
 
@@ -62,9 +62,10 @@ function App() {
 
       <div>
         <h2>Nominations</h2>
-        <Nominations
-          nominations={nominations}
-          onDenomination={denominationHandler}
+        <MovieList
+          objArr={nominations}
+          name="nominations"
+          onMovieListHandler={denominationHandler}
         />
       </div>
     </main>

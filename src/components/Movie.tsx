@@ -3,7 +3,7 @@ import movieInfo from "../models/movieInfo";
 
 const Movie: React.FC<{
   movie: movieInfo;
-  children: ReactNode;
+  children?: ReactNode;
 }> = ({ movie, children }) => {
   return (
     <li>
