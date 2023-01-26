@@ -10,39 +10,39 @@ const MovieList: React.FC<{
 }> = ({ objArr, name, onMovieListHandler, searchArr }) => {
   return (
     <>
-      {(name === "movies" && objArr === undefined) ||
-      (name === "movies" && objArr.length === 0) ? (
+      {((name === "movies" && objArr === undefined) ||
+        (name === "movies" && objArr.length === 0)) && (
         <h3>No movie to show</h3>
-      ) : null}
+      )}
 
-      {name === "nominations" && objArr.length === 5 ? (
+      {name === "nominations" && objArr.length === 5 && (
         <h3>you've reached the limit</h3>
-      ) : null}
+      )}
+
       <ul>
-        {objArr
-          ? objArr.map((obj) => (
-              <Movie key={obj.imdbID} movie={obj}>
-                {name === "movies" ? (
-                  <Button
-                    name={"Nominate"}
-                    movie={obj}
-                    onClickHandler={onMovieListHandler}
-                    isDisabled={
-                      !!searchArr!.find(
-                        (nomination) => obj.imdbID === nomination.imdbID
-                      )
-                    }
-                  />
-                ) : (
-                  <Button
-                    name={"Denominate"}
-                    onClickHandler={onMovieListHandler}
-                    movie={obj}
-                  />
-                )}
-              </Movie>
-            ))
-          : null}
+        {objArr &&
+          objArr.map((obj) => (
+            <Movie key={obj.imdbID} movie={obj}>
+              {name === "movies" ? (
+                <Button
+                  name={"Nominate"}
+                  movie={obj}
+                  onClickHandler={onMovieListHandler}
+                  isDisabled={
+                    !!searchArr!.find(
+                      (nomination) => obj.imdbID === nomination.imdbID
+                    )
+                  }
+                />
+              ) : (
+                <Button
+                  name={"Denominate"}
+                  onClickHandler={onMovieListHandler}
+                  movie={obj}
+                />
+              )}
+            </Movie>
+          ))}
       </ul>
     </>
   );
