@@ -46,6 +46,7 @@ function App() {
 
   return (
     <main>
+      <h1>The Shoppies</h1>
       <Input onInputChangeHandler={inputChangeHandler} val={name} />
 
       <div>
