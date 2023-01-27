@@ -6,9 +6,9 @@ const Movie: React.FC<{
   children?: ReactNode;
 }> = ({ movie, children }) => {
   return (
-    <li>
+    <li className="mb-2">
       {movie.Title}
-      <span>{movie.Year}</span>
+      <span className="text-sm text-gray-700 mr-2">({movie.Year})</span>
       {children}
     </li>
   );

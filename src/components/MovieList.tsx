@@ -16,10 +16,12 @@ const MovieList: React.FC<{
       )}
 
       {name === "nominations" && objArr.length === 5 && (
-        <h3>you've reached the limit</h3>
+        <h3 className="text-red-900 border border-red-500 text-left p-2 bg-red-200 mt-2">
+          you've reached the limit
+        </h3>
       )}
 
-      <ul>
+      <ul className="list-disc mx-auto mt-9 ml-9">
         {objArr &&
           objArr.map((obj) => (
             <Movie key={obj.imdbID} movie={obj}>

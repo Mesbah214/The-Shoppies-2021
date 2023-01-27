@@ -3,11 +3,21 @@ const Input: React.FC<{
   val: string;
 }> = ({ onInputChangeHandler, val }) => {
   return (
-    <div>
+    <>
       {/* accept input from users */}
-      <label htmlFor="name">Name:</label>
-      <input type="text" id="name" value={val} onChange={onInputChangeHandler} />
-    </div>
+      <label className="mb-1 block" htmlFor="name">
+        Movie Title
+      </label>
+      <input
+        className="p-2 block w-full focus:outline-none border border-zinc-600 placeholder:text-sm"
+        type="text"
+        id="name"
+        autoComplete="off"
+        placeholder="Search for a movie e.g. rambo"
+        value={val}
+        onChange={onInputChangeHandler}
+      />
+    </>
   );
 };
 
