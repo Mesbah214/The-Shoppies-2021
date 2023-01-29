@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Card from "./components/UI/Card";
 import movieInfo from "./models/movieInfo";
@@ -7,6 +7,7 @@ import Input from "./components/Input";
 import MovieList from "./components/MovieList";
 
 function App() {
+  const isInitialMount = useRef(true);
   const [name, setName] = useState("");
   const [movies, setMovies] = useState<movieInfo[]>([]);
   const [nominations, setNominations] = useState<movieInfo[]>([]);
@@ -19,11 +20,29 @@ function App() {
 
   const addNominationHandler = (obj: movieInfo) => {
     if (nominations.length < 5) setNominations([...nominations, obj]);
+    localStorage.setItem("nominations", JSON.stringify(nominations));
   };
 
   const denominationHandler = (obj: movieInfo) => {
     setNominations(nominations.filter((a) => a.imdbID !== obj.imdbID));
+    localStorage.setItem("nominations", JSON.stringify(nominations));
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("nominations")) {
+      const savedNominations = JSON.parse(localStorage.getItem("nominations") || "[]");
+      setNominations(savedNominations);
+    }
+  },[])
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      localStorage.setItem("nominations", JSON.stringify(nominations));
+    }
+  }, [nominations]);
+
 
   useEffect(() => {
     if (!name) return;

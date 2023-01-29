@@ -7,7 +7,7 @@ const Button: React.FC<{
   onClickHandler: (movie: movieInfo) => void;
   isDisabled?: boolean
 }> = ({ name, onClickHandler, movie, isDisabled, className }) => {
-  const classes = "bg-gray-100 border border-zinc-400 px-2 py-1 rounded text-sm hover:bg-gray-200 duration-500 " + className;
+  const classes = `bg-gray-100 border border-zinc-400 px-2 py-1 rounded text-sm hover:bg-gray-200 duration-500 ${className} ${isDisabled &&' opacity-40'}`;
   return (
     <button
       className={classes}
