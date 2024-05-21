@@ -13,7 +13,7 @@ const Input: React.FC<{
         type="text"
         id="name"
         autoComplete="off"
-        placeholder="Search for a movie e.g. rambo"
+        placeholder="Search for a movie to nominate e.g. rambo"
         value={val}
         onChange={onInputChangeHandler}
       />
